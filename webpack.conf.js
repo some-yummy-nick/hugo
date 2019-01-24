@@ -29,6 +29,7 @@ export default {
   entry: {
     app: ["./js/app"]
   },
+  mode: 'production',
   output: {
     path: path.join(__dirname, "dist"),
     publicPath: "/",
