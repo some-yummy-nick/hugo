@@ -1,0 +1,12 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Hugo Site"
+[taxonomies]
+    tag = "tags"
+    catagogory = "categories"
+    mood = "moods"
+
+[[other]]
+    name = "other"
+    url  = "/other"
+    weight = 1

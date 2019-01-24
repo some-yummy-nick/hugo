@@ -1,0 +1,6 @@
+<figure>
+    <img src="{{ .Get "src" }}"/>
+<figcaption>{{ if isset .Params "title" }}
+    <h4>{{ .Get "title" }}</h4>{{ end }}
+</figcaption>
+</figure>
