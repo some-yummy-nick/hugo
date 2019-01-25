@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Moods on Hugo Site</title>
+    <link>/moods/</link>
+    <description>Recent content in Moods on Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/moods/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Upbeat</title>
+      <link>/moods/upbeat/</link>
+      <pubDate>Wed, 23 Jan 2019 13:11:33 +0300</pubDate>
+      
+      <guid>/moods/upbeat/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
