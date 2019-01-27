@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{{ partial "head" .}}
 <body>
-{{$title := .Title}}
-{{ range .Site.Pages}}
-<ul>
-    <li><a style="{{if eq .Title $title}} background-color:yellow{{end}}" href="{{.URL}}">{{.Title}}</a></li>
-</ul>
+<!--start wrapper-->
+<div class="wrapper">
+	{{ partial "svg" .}}
+	<!--start content-->
+	<div class="content">
+		<a href="#main" class="skip-to-content skip-to-content_style js-scroll">To the main</a>
 
-{{end}}
+		{{ partial "header" .}}
+
+		<main id="main">
+
+		</main>
+	</div>
+	<!--end content-->
+</div>
+<!--end wrapper-->
+
 </body>
 </html>

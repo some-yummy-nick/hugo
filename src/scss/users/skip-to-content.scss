@@ -1,0 +1,36 @@
+.skip-to-content {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+
+    &:focus {
+        clip: auto !important;
+        z-index: 10000;
+        height: auto;
+        width: auto;
+    }
+
+    &_style{
+        top: -40px;
+        left: 0;
+        padding: 6px;
+        transition: top 0.5s ease-out;
+        color: #fff;
+        border-right: 1px solid #fff;
+        border-bottom: 1px solid #fff;
+        border-bottom-right-radius: 8px;
+        background: #2E2B39;
+
+        &:focus {
+            top: 0;
+            color: #ffffff;
+            outline: none;
+        }
+    }
+
+
+
+}

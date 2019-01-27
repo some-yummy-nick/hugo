@@ -27,12 +27,11 @@ export default {
 
   context: path.join(__dirname, "src"),
   entry: {
-    app: ["./js/app"]
+    script: ["./js/script"]
   },
   mode: 'production',
   output: {
-    path: path.join(__dirname, "dist"),
-    publicPath: "/",
+    path: path.join(__dirname, "dist/js"),
     filename: "[name].js"
   },
   externals: [/^vendor\/.+\.js$/]

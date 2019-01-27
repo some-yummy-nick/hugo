@@ -1,0 +1,10 @@
+.logo {
+    display: flex;
+    justify-content: center;
+
+    &__link {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+}

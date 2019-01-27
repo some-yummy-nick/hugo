@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+{{.Content}}
 functions: <br>
 truncate : {{ truncate 16 "This is a really long string other long "}} <br>
 subtraction {{sub 6 2}} <br>
@@ -13,7 +14,8 @@ singularize {{singularize "mothers"}}<br>
 {{$var1 := "Dog"}}
 {{$var2 := "Cat"}}
 {{$var3 := "Cat"}}
-condition :{{if eq $var1 $var2}}
+condition :
+{{if eq $var1 $var2}}
 egual
 {{else if eq $var2 $var3}}
 var 3 equal var2
@@ -23,14 +25,16 @@ not equal
 
 {{$var4 := 2}}
 {{$var5 := 4}}
-condition если меньше:{{if lt $var4 $var5}}
+condition если меньше:
+{{if lt $var4 $var5}}
 true
 {{else}}
 false
 {{end}}<br>
 
 {{$var6 := 5}}
-condition and:{{if  and (lt $var4 $var5) (lt $var5 $var6)}}
+condition and:
+{{if  and (lt $var4 $var5) (lt $var5 $var6)}}
 true
 {{else}}
 false

@@ -1,5 +1,5 @@
 import gulp from "gulp";
-import { spawn } from "child_process";
+import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
 import gutil from "gulp-util";
 import flatten from "gulp-flatten";
@@ -12,122 +12,208 @@ import webpack from "webpack";
 import webpackConfig from "./webpack.conf";
 
 const browserSync = BrowserSync.create();
+const $ = require("gulp-load-plugins")({
+	pattern: ["*"],
+	scope: ["devDependencies"]
+});
 
 // Hugo arguments
 const hugoArgsDefault = ["-d", "../dist", "-s", "site", "-v"];
 const hugoArgsPreview = ["--buildDrafts", "--buildFuture"];
+const paths = {
+	styles: {
+		src: 'src/scss/style.scss',
+		all: 'src/scss/**/*.scss',
+		build: 'dist/css'
+	},
+};
 
 // Development tasks
 gulp.task("hugo", cb => buildSite(cb));
 gulp.task("hugo-preview", cb => buildSite(cb, hugoArgsPreview));
 
 // Run server tasks
-gulp.task("server", ["hugo", "css", "js", "fonts", "videos", "images"], cb =>
-  runServer(cb)
+gulp.task("server", ["hugo", "scss", "css", "js", "fonts", "videos", "images"], cb =>
+	runServer(cb)
 );
+
 gulp.task(
-  "server-preview",
-  ["hugo-preview", "css", "js", "fonts", "videos", "images"],
-  cb => runServer(cb)
+	"server-preview",
+	["hugo-preview", "scss", "css", "js", "fonts", "videos", "images"],
+	cb => runServer(cb)
 );
 
 // Build/production tasks
-gulp.task("build", ["css", "js", "fonts", "videos", "images"], cb =>
-  buildSite(cb, [], "production")
+gulp.task("build", ["scss", "css", "js", "fonts", "videos", "images"], cb =>
+	buildSite(cb, [], "production")
 );
+
 gulp.task("build-preview", ["css", "js", "fonts", "videos", "images"], cb =>
-  buildSite(cb, hugoArgsPreview, "production")
+	buildSite(cb, hugoArgsPreview, "production")
+);
+
+// Compile scss
+gulp.task("scss", () =>
+	gulp
+		.src(paths.styles.src)
+		.pipe($.sassGlob({
+			ignorePaths: [
+				"src/styles/utils/**",
+				"src/styles/base/**",
+			]
+		}))
+		.pipe($.sass())
+		.pipe($.autoprefixer({
+			cascade: false,
+			grid: true
+		}))
+		.pipe($.cleanCss({
+			level: 2
+		}))
+		.pipe($.postcss([
+			require('css-declaration-sorter')({
+				order: 'smacss'
+			}),
+			// require("postcss-easysprites")({
+			// 	imagePath: "src/images/sprite",
+			// 	spritePath: "src/images/"
+			// }),
+			require("css-mqpacker")({
+				sort: sortMediaQueries
+			})
+		]))
+		.pipe(gulp.dest(paths.styles.build))
+		.pipe(browserSync.stream())
 );
 
 // Compile CSS with PostCSS
 gulp.task("css", () =>
-  gulp
-    .src("./src/css/*.css")
-    .pipe(
-      postcss([
-        cssImport({ from: "./src/css/main.css" }),
-        cssNested(),
-        cssnext()
-      ])
-    )
-    .pipe(gulp.dest("./dist/css"))
-    .pipe(browserSync.stream())
+	gulp
+		.src("./src/css/*.css")
+		.pipe(
+			postcss([
+				cssImport({ from: "./src/css/main.css" }),
+				cssNested(),
+				cssnext()
+			])
+		)
+		.pipe(gulp.dest("./dist/css"))
+		.pipe(browserSync.stream())
 );
 
 // Compile Javascript
 gulp.task("js", cb => {
-  const myConfig = Object.assign({}, webpackConfig);
+	const myConfig = Object.assign({}, webpackConfig);
 
-  webpack(myConfig, (err, stats) => {
-    if (err) throw new gutil.PluginError("webpack", err);
-    gutil.log(
-      "[webpack]",
-      stats.toString({
-        colors: true,
-        progress: true
-      })
-    );
-    browserSync.reload();
-    cb();
-  });
+	webpack(myConfig, (err, stats) => {
+		if (err) throw new gutil.PluginError("webpack", err);
+		gutil.log(
+			"[webpack]",
+			stats.toString({
+				colors: true,
+				progress: true
+			})
+		);
+		browserSync.reload();
+		cb();
+	});
 });
 
 // Move all fonts in a flattened directory
 gulp.task("fonts", () =>
-  gulp
-    .src("./src/fonts/**/*")
-    .pipe(flatten())
-    .pipe(gulp.dest("./dist/fonts"))
-    .pipe(browserSync.stream())
+	gulp
+		.src("./src/fonts/**/*")
+		.pipe(flatten())
+		.pipe(gulp.dest("./dist/fonts"))
+		.pipe(browserSync.stream())
 );
 
 // Move all videos in a flattened directory
 gulp.task("videos", () =>
-  gulp
-    .src("./src/videos/**/*")
-    .pipe(gulp.dest("./dist/videos"))
-    .pipe(browserSync.stream())
+	gulp
+		.src("./src/videos/**/*")
+		.pipe(gulp.dest("./dist/videos"))
+		.pipe(browserSync.stream())
 );
 
 // Move all images in a flattened directory
 gulp.task("images", () =>
-  gulp
-    .src("./src/img/**/*")
-    .pipe(gulp.dest("./dist/img"))
-    .pipe(browserSync.stream())
+	gulp
+		.src("./src/img/**/*")
+		.pipe(gulp.dest("./dist/img"))
+		.pipe(browserSync.stream())
 );
 
 // Development server with browsersync
 function runServer() {
-  browserSync.init({
-    server: {
-      open:false,
-      baseDir: "./dist"
-    }
-  });
-  gulp.watch("./src/js/**/*.js", ["js"]);
-  gulp.watch("./src/css/**/*.css", ["css"]);
-  gulp.watch("./src/fonts/**/*", ["fonts"]);
-  gulp.watch("./src/img/**/*", ["images"]);
-  gulp.watch("./src/videos/**/*", ["videos"]);
-  gulp.watch("./site/**/*", ["hugo"]);
+	browserSync.init({
+		server: {
+			notify: false,
+			tunnel: "hugo",
+			open: false,
+			baseDir: "./dist"
+		}
+	});
+	gulp.watch("./src/js/**/*.js", ["js"]);
+	gulp.watch(paths.styles.all, ["scss"]);
+	gulp.watch("./src/css/**/*.css", ["css"]);
+	gulp.watch("./src/fonts/**/*", ["fonts"]);
+	gulp.watch("./src/img/**/*", ["images"]);
+	gulp.watch("./src/videos/**/*", ["videos"]);
+	gulp.watch("./site/**/*", ["hugo"]);
 }
 
 /**
  * Run hugo and build the site
  */
 function buildSite(cb, options, environment = "development") {
-  const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
+	const args = options ? hugoArgsDefault.concat(options) : hugoArgsDefault;
 
-  process.env.NODE_ENV = environment;
+	process.env.NODE_ENV = environment;
 
-  return spawn(hugoBin, args, { stdio: "inherit" }).on("close", code => {
-    if (code === 0) {
-      browserSync.reload();
-      cb();
-    } else {
-      browserSync.notify("Hugo build failed :(");
-      cb("Hugo build failed");
-    }
-  });
+	return spawn(hugoBin, args, { stdio: "inherit" }).on("close", code => {
+		if (code === 0) {
+			browserSync.reload();
+			cb();
+		} else {
+			browserSync.notify("Hugo build failed :(");
+			cb("Hugo build failed");
+		}
+	});
+}
+
+function isMax(mq) {
+	return /max-width/.test(mq);
+}
+
+function isMin(mq) {
+	return /min-width/.test(mq);
+}
+
+function sortMediaQueries(a, b) {
+
+	let A = a.replace(/\D/g, '');
+
+	let B = b.replace(/\D/g, '');
+
+	if (isMax(a) && isMax(b)) {
+
+		return B - A;
+
+	} else if (isMin(a) && isMin(b)) {
+
+		return A - B;
+
+	} else if (isMax(a) && isMin(b)) {
+
+		return 1;
+
+	} else if (isMin(a) && isMax(b)) {
+
+		return -1;
+
+	}
+
+	return 1;
+
 }

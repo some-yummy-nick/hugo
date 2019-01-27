@@ -1,0 +1,71 @@
+.hamburger {
+  position: relative;
+  display: none;
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:focus {
+    outline: thin dotted;
+    outline-offset: -2px;
+  }
+
+  /* Text meant only for screen readers. */
+  &__screen-reader-text {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+
+  &__icon {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 400ms;
+    user-select: none;
+
+    &.active .top {
+      stroke-dashoffset: -132px;
+    }
+
+    &.active .middle {
+      stroke-dashoffset: -71px;
+    }
+
+    &.active .bottom {
+      stroke-dashoffset: -132px;
+    }
+  }
+
+  &__line {
+    fill: none;
+    transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+    stroke: #000;
+    stroke-width: 5.5;
+    stroke-linecap: round;
+  }
+
+  .top {
+    stroke-dasharray: 40 172;
+  }
+
+  .middle {
+    stroke-dasharray: 40 111;
+  }
+
+  .bottom {
+    stroke-dasharray: 40 172;
+  }
+
+
+
+  @media screen and (max-width: $screen-sm) {
+    display: inline-block;
+  }
+
+  @media screen and (max-width: $screen-xs) {
+
+  }
+
+}

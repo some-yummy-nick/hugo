@@ -1,0 +1,27 @@
+.header {
+    position: relative;
+
+    &__blocks {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__block {
+
+        &_wide {
+            flex-grow: 1;
+        }
+    }
+
+    @media screen and (max-width: $screen-sm) {
+
+        &__block {
+
+            &_wide {
+                flex-grow: inherit;
+                order: 1;
+            }
+        }
+    }
+}

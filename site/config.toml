@@ -1,12 +1,26 @@
 baseURL = "/"
-languageCode = "en-us"
+languageCode = "ru"
 title = "Hugo Site"
+
 [taxonomies]
     tag = "tags"
     catagogory = "categories"
     mood = "moods"
 
-[[other]]
-    name = "other"
-    url  = "/other"
+[[menu.main]]
+    name = "Продукты"
+    title = "Products"
+    url  = "/products/"
     weight = 1
+
+[[menu.main]]
+    name = "Доставка"
+    title = "Delivery"
+    url  = "/delivery/"
+    weight = 2
+
+[[menu.main]]
+    name = "Контакты"
+    title = "Contacts"
+    url = "/contacts/"
+    weight = 3
