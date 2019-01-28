@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru" class="no-js">
+<html lang="{{ .Lang }}" class="no-js">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{.Title}}</title>
-	<link rel="stylesheet" href="{{.Site.BaseURL}}css/style.css">
+	<link rel="stylesheet" href="{{if .Permalink }}/../css/style.css{{else}}/css/style.css{{end}}">
 	<!--<script defer src="{{.Site.BaseURL}}js/intersection-observer.min.js"></script>-->
 	<!--<script defer src="{{.Site.BaseURL}}js/plugins.js"></script>-->
-	<script type="module" src="{{.Site.BaseURL}}js/script.js"></script>
+	<script type="module" src="/js/script.js"></script>
 	<!--<script nomodule defer src="{{.Site.BaseURL}}js/script-old.js"></script>-->
 </head>

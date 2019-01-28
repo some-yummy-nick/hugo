@@ -1,26 +1,56 @@
+defaultContentLanguage = "ru"
+#defaultContentLanguageInSubdir = true
 baseURL = "/"
-languageCode = "ru"
-title = "Hugo Site"
+[languages]
+
+    [languages.en]
+       languageName = "English"
+       title = "English"
+       weight = 2
+
+    [[languages.en.menu.main]]
+       name = "Products"
+       title = "Products"
+       url  = "../products/"
+       weight = 1
+
+    [[languages.en.menu.main]]
+       name = "Delivery"
+       title = "Delivery"
+       url  = "../delivery/"
+       weight = 2
+
+    [[languages.en.menu.main]]
+       name = "Contacts"
+       title = "Contacts"
+       url = "../contacts/"
+       weight = 3
+
+    [languages.ru]
+        languageName = "Russian"
+        title = "Русский"
+        weight = 1
+
+    [[languages.ru.menu.main]]
+        name = "Продукты"
+        title = "Products"
+        url  = "products/"
+        weight = 1
+
+    [[languages.ru.menu.main]]
+        name = "Доставка"
+        title = "Delivery"
+        url  = "delivery/"
+        weight = 2
+
+    [[languages.ru.menu.main]]
+        name = "Контакты"
+        title = "Contacts"
+        url = "contacts/"
+        weight = 3
 
 [taxonomies]
     tag = "tags"
     catagogory = "categories"
     mood = "moods"
 
-[[menu.main]]
-    name = "Продукты"
-    title = "Products"
-    url  = "/products/"
-    weight = 1
-
-[[menu.main]]
-    name = "Доставка"
-    title = "Delivery"
-    url  = "/delivery/"
-    weight = 2
-
-[[menu.main]]
-    name = "Контакты"
-    title = "Contacts"
-    url = "/contacts/"
-    weight = 3
