@@ -7,16 +7,17 @@
 		"hugo": "gulp hugo",
 		"prod": "gulp build",
 		"prod-preview": "gulp build-preview",
-		"initial": "gulp server ",
+		"initial": "gulp server",
 		"initial-preview": "gulp server-preview",
-		"dev": "webpack --watch --env=new",
-		"start": "npm-run-all --parallel initial dev",
-		"lint": "eslint src",
-		"deploy": "gh-pages -d dist",
+		"dev-watch": "webpack --watch --env=new",
+		"start": "npm-run-all --parallel initial dev-watch",
+		"start-preview": "npm-run-all --parallel initial-preview dev-watch",
 		"webpack": "webpack --env=old",
-		"build": "npm-run-all --parallel prod webpack",
-		"build-preview": "npm-run-all --parallel prod-preview webpack",
-		"start-preview": "npm-run-all --parallel initial-preview dev"
+		"dev": "webpack --env=new",
+		"build": "npm-run-all --parallel prod webpack dev",
+		"build-preview": "npm-run-all --parallel prod-preview webpack dev",
+		"lint": "eslint src",
+		"deploy": "gh-pages -d dist"
 	},
 	"author": "",
 	"license": "MIT",
@@ -53,6 +54,7 @@
 	},
 	"browserslist": [
 		"> 0.01%",
+		"IE 10",
 		"last 2 versions"
 	],
 	"devDependencies": {
@@ -71,6 +73,7 @@
 		"gulp-sass-glob": "^1.0.9",
 		"npm-run-all": "^4.1.5",
 		"postcss-easysprites": "^0.1.9",
-		"webpack-cli": "^3.2.1"
+		"webpack-cli": "^3.2.1",
+		"webpack-merge": "^4.2.1"
 	}
 }
