@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Cat3 on Hugo Site</title>
+    <title>Cat3 on Русский</title>
     <link>/categories/cat3/</link>
-    <description>Recent content in Cat3 on Hugo Site</description>
+    <description>Recent content in Cat3 on Русский</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
     <lastBuildDate>Thu, 24 Jan 2019 09:49:22 +0300</lastBuildDate>
     
 	<atom:link href="/categories/cat3/index.xml" rel="self" type="application/rss+xml" />
@@ -17,7 +16,7 @@
       <pubDate>Thu, 24 Jan 2019 09:49:22 +0300</pubDate>
       
       <guid>/dir2/c/</guid>
-      <description>Steve Francia   some text md support shortcode</description>
+      <description>Steve Franciasome textmd support shortcode</description>
     </item>
     
   </channel>

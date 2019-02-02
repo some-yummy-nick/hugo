@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Русский</title>
+    <link>/contacts/</link>
+    <description>Recent content on Русский</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 24 Jan 2019 09:49:22 +0300</lastBuildDate>
+    
+	<atom:link href="/contacts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>prod</title>
+      <link>/contacts/prod/</link>
+      <pubDate>Thu, 24 Jan 2019 09:49:22 +0300</pubDate>
+      
+      <guid>/contacts/prod/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo Site</title>
+    <title>Русский</title>
     <link>/</link>
-    <description>Recent content on Hugo Site</description>
+    <description>Recent content on Русский</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
     <lastBuildDate>Fri, 25 Jan 2019 11:45:50 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
@@ -26,7 +25,25 @@
       <pubDate>Thu, 24 Jan 2019 09:49:22 +0300</pubDate>
       
       <guid>/dir2/c/</guid>
-      <description>Steve Francia   some text md support shortcode</description>
+      <description>Steve Franciasome textmd support shortcode</description>
+    </item>
+    
+    <item>
+      <title>prod</title>
+      <link>/contacts/prod/</link>
+      <pubDate>Thu, 24 Jan 2019 09:49:22 +0300</pubDate>
+      
+      <guid>/contacts/prod/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prod</title>
+      <link>/products/prod/</link>
+      <pubDate>Thu, 24 Jan 2019 09:49:22 +0300</pubDate>
+      
+      <guid>/products/prod/</guid>
+      <description></description>
     </item>
     
     <item>
