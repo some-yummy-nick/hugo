@@ -1,3 +1,4 @@
+console.log(3);
 // (function () {
 //     function component() {
 //         var element = document.createElement('div');
