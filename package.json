@@ -1,6 +1,5 @@
 {
-	"name": "victor-hugo",
-	"version": "1.0.0",
+	"name": "hugo-template",
 	"description": "Victor Hugo is a Hugo boilerplate for creating truly epic websites!",
 	"repository": "netlify/victor-hugo",
 	"scripts": {
@@ -9,17 +8,17 @@
 		"prod-preview": "gulp build-preview",
 		"initial": "gulp server",
 		"initial-preview": "gulp server-preview",
-		"dev-watch": "webpack --watch --env=new",
+		"dev-watch": "webpack --watch --env=new --mode=production",
 		"start": "npm-run-all --parallel initial dev-watch",
 		"start-preview": "npm-run-all --parallel initial-preview dev-watch",
-		"webpack": "webpack --env=old",
-		"dev": "webpack --env=new",
+		"webpack": "webpack --env=old --mode=production",
+		"dev": "webpack --env=new --mode=production",
 		"build": "npm-run-all --parallel prod webpack dev",
 		"build-preview": "npm-run-all --parallel prod-preview webpack dev",
 		"lint": "eslint src",
 		"deploy": "gh-pages -d dist"
 	},
-	"author": "",
+	"author": "Marat",
 	"license": "MIT",
 	"dependencies": {
 		"babel-eslint": "^10.0.1",

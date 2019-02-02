@@ -1,6 +1,7 @@
 defaultContentLanguage = "ru"
 #defaultContentLanguageInSubdir = true
 baseURL = "/"
+relativeURLs = true
 [languages]
 
     [languages.en]

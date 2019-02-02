@@ -76,10 +76,10 @@ gulp.task("scss", () =>
 			require('css-declaration-sorter')({
 				order: 'smacss'
 			}),
-			// require("postcss-easysprites")({
-			// 	imagePath: "src/img/sprite",
-			// 	spritePath: "src/img/"
-			// }),
+			require("postcss-easysprites")({
+				imagePath: "src/img/",
+				spritePath: "src/img/"
+			}),
 			require("css-mqpacker")({
 				sort: sortMediaQueries
 			})
@@ -103,24 +103,6 @@ gulp.task("css", () =>
 		.pipe(browserSync.stream())
 );
 
-// Compile Javascript
-// gulp.task("js", cb => {
-// 	const myConfig = Object.assign({}, webpackConfig);
-//
-// 	webpack(myConfig, (err, stats) => {
-// 		if (err) throw new gutil.PluginError("webpack", err);
-// 		gutil.log(
-// 			"[webpack]",
-// 			stats.toString({
-// 				colors: true,
-// 				progress: true
-// 			})
-// 		);
-// 		browserSync.reload();
-// 		cb();
-// 	});
-// });
-
 // Move all fonts in a flattened directory
 gulp.task("fonts", () =>
 	gulp
@@ -141,7 +123,7 @@ gulp.task("videos", () =>
 // Move all images in a flattened directory
 gulp.task("images", () =>
 	gulp
-		.src("./src/img/**/*")
+		.src("./src/img/*.*")
 		.pipe(gulp.dest("./dist/img"))
 		.pipe(browserSync.stream())
 );

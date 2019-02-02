@@ -1,11 +1,3 @@
-var materials = [
-	'Hydrogen',
-	'Helium',
-	'Lithium',
-	'Beryllium'
-];
-
-console.log(materials.map(material => material.length));
 // (function () {
 //     function component() {
 //         var element = document.createElement('div');
@@ -28,3 +20,4 @@ console.log(materials.map(material => material.length));
 //     document.body.appendChild(component());
 //
 // })();
+console.log(6);
