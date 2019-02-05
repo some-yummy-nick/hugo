@@ -1,4 +1,9 @@
 {
-  "presets": ["env"],
-  "plugins": ["syntax-object-rest-spread", "transform-object-rest-spread"]
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns": "usage",
+      "debug":true
+    }]
+  ],
+  "plugins": ["syntax-dynamic-import"]
 }

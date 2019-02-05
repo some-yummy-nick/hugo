@@ -1,21 +1,16 @@
-import gulp from "gulp";
-import {spawn} from "child_process";
-import hugoBin from "hugo-bin";
-import gutil from "gulp-util";
-import flatten from "gulp-flatten";
-import postcss from "gulp-postcss";
-import cssImport from "postcss-import";
-import cssnext from "postcss-cssnext";
-import cssNested from "postcss-nested";
-import BrowserSync from "browser-sync";
-import webpack from "webpack";
-import webpackConfig from "./webpack.conf";
-
-const browserSync = BrowserSync.create();
-const $ = require("gulp-load-plugins")({
-	pattern: ["*"],
-	scope: ["devDependencies"]
-});
+const gulp = require("gulp"),
+	{ spawn } = require('child_process'),
+	flatten = require("gulp-flatten"),
+	postcss = require("gulp-postcss"),
+	cssImport = require("postcss-import"),
+	cssnext = require("postcss-cssnext"),
+	cssNested = require("postcss-nested"),
+	hugoBin = require("hugo-bin"),
+	browserSync = require("browser-sync").create();
+	$ = require("gulp-load-plugins")({
+		pattern: ["*"],
+		scope: ["devDependencies"]
+	});
 
 // Hugo arguments
 const hugoArgsDefault = ["-d", "../dist", "-s", "site", "-v"];
@@ -26,6 +21,13 @@ const paths = {
 		all: 'src/scss/**/*.scss',
 		build: 'dist/css'
 	},
+	js: {
+		index: 'src/js/*.js',
+		plugins: 'src/plugins/*.js',
+		libs: 'src/libs/*.js',
+		all: 'src/**/*.js',
+		build: 'build/js',
+	}
 };
 
 // Development tasks
@@ -33,22 +35,22 @@ gulp.task("hugo", cb => buildSite(cb));
 gulp.task("hugo-preview", cb => buildSite(cb, hugoArgsPreview));
 
 // Run server tasks
-gulp.task("server", ["hugo", "scss", "css", "js", "fonts", "videos", "images"], cb =>
+gulp.task("server", ["hugo", "scss", "css", "fonts", "videos", "images"], cb =>
 	runServer(cb)
 );
 
 gulp.task(
 	"server-preview",
-	["hugo-preview", "scss", "css", "js", "fonts", "videos", "images"],
+	["hugo-preview", "scss", "css", "fonts", "videos", "images"],
 	cb => runServer(cb)
 );
 
 // Build/production tasks
-gulp.task("build", ["scss", "css", "js", "fonts", "videos", "images"], cb =>
+gulp.task("build", ["scss", "css", "fonts", "videos", "images"], cb =>
 	buildSite(cb, [], "production")
 );
 
-gulp.task("build-preview", ["css", "js", "fonts", "videos", "images"], cb =>
+gulp.task("build-preview", ["css", "fonts", "videos", "images"], cb =>
 	buildSite(cb, hugoArgsPreview, "production")
 );
 
@@ -74,10 +76,10 @@ gulp.task("scss", () =>
 			require('css-declaration-sorter')({
 				order: 'smacss'
 			}),
-			// require("postcss-easysprites")({
-			// 	imagePath: "src/images/sprite",
-			// 	spritePath: "src/images/"
-			// }),
+			require("postcss-easysprites")({
+				imagePath: "src/img/",
+				spritePath: "src/img/"
+			}),
 			require("css-mqpacker")({
 				sort: sortMediaQueries
 			})
@@ -101,24 +103,6 @@ gulp.task("css", () =>
 		.pipe(browserSync.stream())
 );
 
-// Compile Javascript
-gulp.task("js", cb => {
-	const myConfig = Object.assign({}, webpackConfig);
-
-	webpack(myConfig, (err, stats) => {
-		if (err) throw new gutil.PluginError("webpack", err);
-		gutil.log(
-			"[webpack]",
-			stats.toString({
-				colors: true,
-				progress: true
-			})
-		);
-		browserSync.reload();
-		cb();
-	});
-});
-
 // Move all fonts in a flattened directory
 gulp.task("fonts", () =>
 	gulp
@@ -139,7 +123,7 @@ gulp.task("videos", () =>
 // Move all images in a flattened directory
 gulp.task("images", () =>
 	gulp
-		.src("./src/img/**/*")
+		.src("./src/img/*.*")
 		.pipe(gulp.dest("./dist/img"))
 		.pipe(browserSync.stream())
 );
@@ -154,7 +138,7 @@ function runServer() {
 			baseDir: "./dist"
 		}
 	});
-	gulp.watch("./src/js/**/*.js", ["js"]);
+	gulp.watch(paths.js.all, browserSync.reload);
 	gulp.watch(paths.styles.all, ["scss"]);
 	gulp.watch("./src/css/**/*.css", ["css"]);
 	gulp.watch("./src/fonts/**/*", ["fonts"]);
