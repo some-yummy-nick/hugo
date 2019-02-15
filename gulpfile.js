@@ -26,10 +26,14 @@ const paths = {
 		plugins: 'src/plugins/*.js',
 		libs: 'src/libs/*.js',
 		all: 'src/**/*.js',
-		build: 'build/js',
+		build: 'dist/js',
+	},
+	img:{
+		src: 'src/img/*.+(jpg|JPG|png)',
+		build:"./dist/img"
 	}
-};
 
+};
 // Development tasks
 gulp.task("hugo", cb => buildSite(cb));
 gulp.task("hugo-preview", cb => buildSite(cb, hugoArgsPreview));
@@ -122,9 +126,9 @@ gulp.task("videos", () =>
 
 // Move all images in a flattened directory
 gulp.task("images", () =>
-	gulp
-		.src("./src/img/*.*")
-		.pipe(gulp.dest("./dist/img"))
+	gulp.src(paths.images.src)
+		.pipe($.cache($.tinypng('BLZpO1PPn1JhAC0IBa8ncwiTmWm93ySw')))
+		.pipe(gulp.dest(paths.images.build))
 		.pipe(browserSync.stream())
 );
 
